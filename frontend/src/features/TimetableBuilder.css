@@ -1,0 +1,46 @@
+/* TimetableBuilder.css */
+
+.build-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.timetable-export-area {
+  background: var(--color-surface-page);
+  padding: var(--space-2);
+}
+
+.export-row {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+  margin-top: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.error-msg {
+  color: var(--color-status-clash);
+  font-size: var(--font-size-md);
+  margin-bottom: var(--space-3);
+  padding: var(--space-3);
+  background: #fff0f0;
+  border: var(--border-width-default) var(--border-style-default) var(--color-status-clash);
+  border-radius: var(--radius-sm);
+}
+
+.status-text {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  padding: var(--space-3) 0;
+}
+
+@media (max-width: 639px) {
+  .export-row {
+    justify-content: stretch;
+    flex-direction: column;
+  }
+  .export-row .btn {
+    width: 100%;
+  }
+}

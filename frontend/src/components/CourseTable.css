@@ -1,0 +1,79 @@
+/* CourseTable.css — Course selection list table */
+
+.course-table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  border: var(--border-width-default) var(--border-style-default) var(--color-border-strong);
+}
+
+.course-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+  min-width: 600px;
+}
+
+.course-table thead tr {
+  background: var(--color-surface-muted);
+  border-bottom: 2px solid var(--color-border-strong);
+}
+
+.course-table th {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+}
+
+.course-table th:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: -2px;
+}
+
+/* Rows */
+.course-row {
+  border-bottom: var(--border-width-default) var(--border-style-default) var(--color-border-muted);
+  transition: background 0.1s;
+}
+.course-row.row-odd {
+  background: var(--color-surface-page);
+}
+.course-row.row-even {
+  background: var(--color-surface-muted);
+}
+.course-row:hover {
+  background: var(--color-surface-overlay);
+}
+.course-row.selected {
+  background: #e8f0ff;
+  border-left: 3px solid var(--color-text-link);
+}
+
+.course-table td {
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  vertical-align: middle;
+}
+
+/* Checkbox column */
+.col-check {
+  width: 40px;
+  text-align: center;
+}
+
+/* Checkbox styling */
+.course-table input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  border: var(--border-width-default) var(--border-style-default) var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  accent-color: var(--color-surface-base);
+}
+.course-table input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}

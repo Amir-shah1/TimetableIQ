@@ -1,0 +1,103 @@
+/* FreeRoomFinder.css */
+
+.room-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.filter-field {
+  flex: 1;
+  min-width: 160px;
+}
+
+.room-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+}
+
+.room-col {
+  flex: 1;
+  min-width: 260px;
+}
+
+.room-col-heading {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-3);
+}
+
+.free-heading {
+  color: var(--color-status-free);
+}
+
+.occupied-heading {
+  color: var(--color-status-occupied);
+}
+
+.room-empty-text {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+}
+
+.free-all-text {
+  color: var(--color-status-free);
+}
+
+/* Room tables */
+.room-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+  border: var(--border-width-default) var(--border-style-default) var(--color-border-strong);
+  overflow-x: auto;
+  display: block;
+}
+
+.room-table th {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  background: var(--color-surface-muted);
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  border-bottom: 2px solid var(--color-border-strong);
+  white-space: nowrap;
+}
+
+.room-table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: var(--border-width-default) var(--border-style-default) var(--color-border-muted);
+}
+
+.free-room-row {
+  border-left: 3px solid var(--color-status-free);
+}
+
+.occupied-room-row {
+  border-left: 3px solid var(--color-status-occupied);
+}
+
+.error-msg {
+  color: var(--color-status-clash);
+  font-size: var(--font-size-md);
+  margin-bottom: var(--space-3);
+  padding: var(--space-3);
+  background: #fff0f0;
+  border: var(--border-width-default) var(--border-style-default) var(--color-status-clash);
+  border-radius: var(--radius-sm);
+}
+
+.status-text {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  padding: var(--space-3) 0;
+}
+
+@media (max-width: 639px) {
+  .room-results {
+    flex-direction: column;
+  }
+}

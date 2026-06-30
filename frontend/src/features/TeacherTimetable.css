@@ -1,0 +1,98 @@
+/* TeacherTimetable.css */
+
+.teacher-search-wrapper {
+  position: relative;
+  max-width: 480px;
+  margin-bottom: var(--space-4);
+}
+
+.teacher-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--color-surface-page);
+  border: var(--border-width-default) var(--border-style-default) var(--color-border-muted);
+  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-dropdown);
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 100;
+  list-style: none;
+  padding: 0;
+  margin-top: 2px;
+}
+
+.teacher-dropdown-item {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  border-bottom: var(--border-width-default) var(--border-style-default) var(--color-border-muted);
+}
+.teacher-dropdown-item:last-child { border-bottom: none; }
+.teacher-dropdown-item:hover,
+.teacher-dropdown-item[aria-selected="true"] {
+  background: var(--color-surface-muted);
+  font-weight: var(--font-weight-medium);
+}
+.teacher-dropdown-item:focus-visible {
+  outline: 2px solid var(--color-border-focus) inset;
+}
+
+/* Teacher info bar */
+.teacher-info-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  background: var(--color-surface-raised);
+  border: var(--border-width-default) var(--border-style-default) var(--color-border-muted);
+  border-radius: var(--radius-xs);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.teacher-info-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+}
+
+.info-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.info-value {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.info-name {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-md);
+}
+
+a.info-value {
+  color: var(--color-text-link);
+}
+
+.error-msg {
+  color: var(--color-status-clash);
+  font-size: var(--font-size-md);
+  margin-bottom: var(--space-3);
+  padding: var(--space-3);
+  background: #fff0f0;
+  border: var(--border-width-default) var(--border-style-default) var(--color-status-clash);
+  border-radius: var(--radius-sm);
+}
+
+.status-text {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  padding: var(--space-3) 0;
+}

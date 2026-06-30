@@ -1,0 +1,98 @@
+/* TeacherDirectory.css */
+
+.dir-search-wrapper {
+  max-width: 480px;
+  margin-bottom: var(--space-5);
+}
+
+/* Teacher grid — responsive 1/2/3 columns */
+.teacher-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .teacher-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .teacher-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Teacher card */
+.teacher-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.teacher-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.teacher-email a {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-link);
+}
+
+.teacher-meta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.meta-label {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.card-divider {
+  border: none;
+  border-top: var(--border-width-default) var(--border-style-default) var(--color-border-muted);
+  margin: var(--space-2) 0;
+}
+
+.courses-section {
+  flex: 1;
+}
+
+.courses-heading {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-1);
+}
+
+.courses-list {
+  list-style: none;
+  padding: 0;
+}
+
+.course-entry {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  padding: 2px 0;
+  border-bottom: var(--border-width-default) var(--border-style-default) var(--color-border-muted);
+}
+.course-entry:last-child { border-bottom: none; }
+
+.no-courses-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.error-msg {
+  color: var(--color-status-clash);
+  font-size: var(--font-size-md);
+  margin-bottom: var(--space-3);
+  padding: var(--space-3);
+  background: #fff0f0;
+  border: var(--border-width-default) var(--border-style-default) var(--color-status-clash);
+  border-radius: var(--radius-sm);
+}

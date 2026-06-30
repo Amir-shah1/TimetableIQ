@@ -1,0 +1,106 @@
+/* ClashDetector.css */
+
+.error-msg {
+  color: var(--color-status-clash);
+  font-size: var(--font-size-md);
+  margin-bottom: var(--space-3);
+  padding: var(--space-3);
+  background: #fff0f0;
+  border: var(--border-width-default) var(--border-style-default) var(--color-status-clash);
+  border-radius: var(--radius-sm);
+}
+
+.status-text {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  padding: var(--space-3) 0;
+}
+
+.clash-results-heading {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+}
+
+/* Floating Notifications (Toast) */
+.floating-notifications {
+  position: fixed;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  z-index: 1000;
+  max-width: 400px;
+  width: calc(100vw - 32px);
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--color-surface-page);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-modal);
+  padding: var(--space-3);
+  animation: slideInUp 0.3s ease-out forwards;
+  border-left: 4px solid;
+  pointer-events: auto;
+}
+
+.toast-success {
+  border-left-color: var(--color-status-free);
+  color: var(--color-status-free);
+  background: #f0fdf4;
+}
+
+.toast-error {
+  border-left-color: var(--color-status-clash);
+  background: #fff0f0;
+}
+
+.toast-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+  color: var(--color-status-clash);
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+}
+
+.toast-close:hover {
+  color: var(--color-text-primary);
+}
+
+.toast-body {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.clash-item-toast {
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid var(--color-border-muted);
+}
+.clash-item-toast:last-child {
+  border-bottom: none;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,146 @@
+/* TimetableGrid.css — Weekly timetable grid styles */
+
+.timetable-scroll-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.timetable-table {
+  border-collapse: collapse;
+  border: var(--border-width-default) var(--border-style-default) var(--color-border-strong);
+  border-radius: var(--radius-none);
+  width: 100%;
+  min-width: 500px;
+  background: var(--color-surface-page);
+}
+
+/* Column headers (time slots) */
+.timetable-time-header {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  background: var(--color-surface-muted);
+  text-align: center;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width-default) var(--border-style-default) var(--color-border-muted);
+  line-height: var(--font-line-height-tight);
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+/* Day column header (top-left corner) */
+.timetable-day-header {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  background: var(--color-surface-muted);
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width-default) var(--border-style-default) var(--color-border-muted);
+  width: 80px;
+  min-width: 80px;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
+
+/* Row headers (day names) */
+.timetable-day-cell {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width-default) var(--border-style-default) var(--color-border-muted);
+  width: 80px;
+  min-width: 80px;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: inherit; /* inherits from row */
+}
+
+/* Alternating rows */
+.row-odd {
+  background: var(--color-surface-page);
+}
+.row-even {
+  background: var(--color-surface-muted);
+}
+/* Sticky day cell needs explicit background */
+.row-odd .timetable-day-cell {
+  background: var(--color-surface-page);
+}
+.row-even .timetable-day-cell {
+  background: var(--color-surface-muted);
+}
+
+/* Data cells */
+.timetable-cell {
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width-default) var(--border-style-default) var(--color-border-muted);
+  vertical-align: top;
+  min-width: 120px;
+}
+
+/* Clash cell */
+.timetable-cell-clash {
+  background: #fff0f0 !important;
+  border: var(--border-width-default) var(--border-style-default) var(--color-status-clash) !important;
+}
+
+/* Cell content */
+.cell-entry {
+  margin-bottom: var(--space-1);
+}
+.cell-entry:last-child {
+  margin-bottom: 0;
+}
+
+.clash-label {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-status-clash);
+  margin-bottom: 2px;
+}
+
+.cell-course {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  line-height: var(--font-line-height-tight);
+}
+
+.cell-room {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-base);
+  color: var(--color-text-primary);
+  line-height: var(--font-line-height-tight);
+}
+
+.cell-instructor {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-link);
+  line-height: var(--font-line-height-tight);
+}
+
+.cell-instructor-btn {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-link);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  line-height: var(--font-line-height-tight);
+}
+.cell-instructor-btn:hover {
+  color: #0000cc;
+}
+.cell-instructor-btn:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
