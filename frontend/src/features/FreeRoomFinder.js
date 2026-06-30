@@ -9,16 +9,23 @@ function timeToMinutes(hhmm) {
 function FreeRoomFinder() {
   const [allCourses, setAllCourses] = useState([]);
   const [days, setDays]             = useState([]);
-  const [times, setTimes]           = useState([]);
   const [day, setDay]               = useState('');
-  const [startTime, setStartTime]   = useState('');
-  const [endTime, setEndTime]        = useState('');
-  const [timeError, setTimeError]   = useState('');
+  const [selectedSlotIndex, setSelectedSlotIndex] = useState('');
   const [results, setResults]       = useState(null);
   const [loading, setLoading]       = useState(false);
   const [fetchError, setFetchError] = useState('');
 
   const DAY_ORDER = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  const SLOTS = [
+    { label: 'Slot 1 (09:00 - 10:30)', start: '09:00', end: '10:30' },
+    { label: 'Slot 2 (10:30 - 12:00)', start: '10:30', end: '12:00' },
+    { label: 'Slot 3 (12:00 - 13:30)', start: '12:00', end: '13:30' },
+    { label: 'Slot 4 (13:30 - 15:00)', start: '13:30', end: '15:00' },
+    { label: 'Slot 5 (15:00 - 16:30)', start: '15:00', end: '16:30' },
+    { label: 'Slot 6 (16:30 - 18:00)', start: '16:30', end: '18:00' },
+    { label: 'Slot 7 (18:00 - 19:30)', start: '18:00', end: '19:30' },
+  ];
 
   // Load all courses once
   useEffect(() => {
@@ -27,35 +34,24 @@ function FreeRoomFinder() {
       .then(data => {
         if (!Array.isArray(data)) { setFetchError('Timetable data is currently unavailable. Please contact TechNest.'); return; }
         setAllCourses(data);
-        // Unique days, sorted by DAY_ORDER
         const uniqueDays = [...new Set(data.map(c => c.day))].sort(
           (a, b) => DAY_ORDER.indexOf(a) - DAY_ORDER.indexOf(b)
         );
         setDays(uniqueDays);
-        // Unique times — collect all start_time and end_time values
-        const timeSet = new Set();
-        data.forEach(c => { if (c.start_time) timeSet.add(c.start_time); if (c.end_time) timeSet.add(c.end_time); });
-        const sortedTimes = [...timeSet].sort((a, b) => timeToMinutes(a) - timeToMinutes(b));
-        setTimes(sortedTimes);
       })
       .catch(() => setFetchError('Timetable data is currently unavailable. Please contact TechNest.'));
   }, []);
 
   // Validate and fetch rooms whenever inputs change
   useEffect(() => {
-    if (!day || !startTime || !endTime) {
-      setResults(null);
-      setTimeError('');
-      return;
-    }
-    if (timeToMinutes(startTime) >= timeToMinutes(endTime)) {
-      setTimeError('End time must be after start time.');
+    if (!day || selectedSlotIndex === '') {
       setResults(null);
       return;
     }
-    setTimeError('');
+    
+    const slot = SLOTS[selectedSlotIndex];
     setLoading(true);
-    fetch(`/api/free-rooms?day=${encodeURIComponent(day)}&startTime=${encodeURIComponent(startTime)}&endTime=${encodeURIComponent(endTime)}`)
+    fetch(`/api/free-rooms?day=${encodeURIComponent(day)}&startTime=${encodeURIComponent(slot.start)}&endTime=${encodeURIComponent(slot.end)}`)
       .then(r => r.json())
       .then(data => {
         if (data.error) { setFetchError(data.error); setResults(null); }
@@ -63,7 +59,7 @@ function FreeRoomFinder() {
         setLoading(false);
       })
       .catch(() => { setFetchError('Error fetching room data.'); setLoading(false); });
-  }, [day, startTime, endTime]);
+  }, [day, selectedSlotIndex]);
 
   return (
     <div className="feature-page container">
@@ -88,41 +84,25 @@ function FreeRoomFinder() {
           </select>
         </div>
         <div className="filter-field">
-          <label className="input-label" htmlFor="start-time-select">Start Time</label>
+          <label className="input-label" htmlFor="slot-select">Time Slot</label>
           <select
-            id="start-time-select"
-            className={`select-field${timeError ? ' error' : ''}`}
-            value={startTime}
-            onChange={e => setStartTime(e.target.value)}
-            aria-label="Select start time"
-            aria-describedby={timeError ? 'time-error' : undefined}
+            id="slot-select"
+            className="select-field"
+            value={selectedSlotIndex}
+            onChange={e => setSelectedSlotIndex(e.target.value)}
+            aria-label="Select time slot"
           >
-            <option value="">-- Start Time --</option>
-            {times.map(t => <option key={t} value={t}>{t}</option>)}
+            <option value="">-- Select Slot --</option>
+            {SLOTS.map((s, idx) => <option key={idx} value={idx}>{s.label}</option>)}
           </select>
-        </div>
-        <div className="filter-field">
-          <label className="input-label" htmlFor="end-time-select">End Time</label>
-          <select
-            id="end-time-select"
-            className={`select-field${timeError ? ' error' : ''}`}
-            value={endTime}
-            onChange={e => setEndTime(e.target.value)}
-            aria-label="Select end time"
-            aria-describedby={timeError ? 'time-error' : undefined}
-          >
-            <option value="">-- End Time --</option>
-            {times.map(t => <option key={t} value={t}>{t}</option>)}
-          </select>
-          {timeError && <div id="time-error" className="inline-error" role="alert">{timeError}</div>}
         </div>
       </div>
 
       {/* Empty state */}
-      {!day || !startTime || !endTime ? (
+      {!day || selectedSlotIndex === '' ? (
         <div className="empty-state section-gap">
           <div className="empty-state-icon">🏫</div>
-          <div className="empty-state-heading">Select a day and time range to find free rooms.</div>
+          <div className="empty-state-heading">Select a day and time slot to find free rooms.</div>
         </div>
       ) : null}
 
@@ -136,45 +116,18 @@ function FreeRoomFinder() {
             {results.free_rooms.length === 0 ? (
               <p className="room-empty-text">No free rooms found for this slot.</p>
             ) : (
-              <table className="room-table" aria-label="Free rooms">
-                <thead><tr><th scope="col">Room</th></tr></thead>
-                <tbody>
-                  {results.free_rooms.map(r => (
-                    <tr key={r} className="free-room-row">
-                      <td>{r}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
-          <div className="room-col">
-            <h2 className="room-col-heading occupied-heading">Occupied Rooms</h2>
-            {results.occupied_rooms.length === 0 ? (
-              <p className="room-empty-text free-all-text">All rooms are free during this slot.</p>
-            ) : (
-              <table className="room-table occupied-table" aria-label="Occupied rooms">
-                <thead>
-                  <tr>
-                    <th scope="col">Room</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Section</th>
-                    <th scope="col">Instructor</th>
-                    <th scope="col">Time</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {results.occupied_rooms.map((r, i) => (
-                    <tr key={i} className="occupied-room-row">
-                      <td>{r.room}</td>
-                      <td>{r.course}</td>
-                      <td>{r.section}</td>
-                      <td>{r.instructor}</td>
-                      <td>{r.time}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="room-table-wrapper">
+                <table className="room-table" aria-label="Free rooms">
+                  <thead><tr><th scope="col">Room</th></tr></thead>
+                  <tbody>
+                    {results.free_rooms.map(r => (
+                      <tr key={r} className="free-room-row">
+                        <td>{r}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
         </div>

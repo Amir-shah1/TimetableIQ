@@ -47,13 +47,18 @@
 }
 
 /* Room tables */
+.room-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: var(--border-width-default) var(--border-style-default) var(--color-border-strong);
+}
+
 .room-table {
   width: 100%;
   border-collapse: collapse;
   font-size: var(--font-size-sm);
-  border: var(--border-width-default) var(--border-style-default) var(--color-border-strong);
-  overflow-x: auto;
-  display: block;
+  table-layout: auto;
 }
 
 .room-table th {
@@ -61,22 +66,30 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   background: var(--color-surface-muted);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-4);
   text-align: left;
   border-bottom: 2px solid var(--color-border-strong);
   white-space: nowrap;
 }
 
 .room-table td {
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-4);
   border-bottom: var(--border-width-default) var(--border-style-default) var(--color-border-muted);
 }
 
-.free-room-row {
+.room-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.room-table tbody tr:hover {
+  background: var(--color-surface-hover, rgba(255,255,255,0.05));
+}
+
+.free-room-row td:first-child {
   border-left: 3px solid var(--color-status-free);
 }
 
-.occupied-room-row {
+.occupied-room-row td:first-child {
   border-left: 3px solid var(--color-status-occupied);
 }
 
