@@ -5,9 +5,10 @@ Run: python app.py
 """
 
 import logging
+import os
 from urllib.parse import unquote
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
 import data_loader
@@ -20,7 +21,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-app = Flask(__name__)
+# Serve React App
+app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
 CORS(app)  # Allow all origins for local development
 
 # Load data on startup
@@ -197,6 +199,24 @@ def reload_data():
         logger.error("Reload failed: %s", exc)
         return jsonify({"success": False, "error": str(exc)}), 500
 
+
+# ─────────────────────────────────────────────
+# Frontend Serving Routes
+# ─────────────────────────────────────────────
+
+@app.route("/", defaults={'path': ''})
+@app.route("/<path:path>")
+def serve(path):
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
+
+@app.errorhandler(404)
+def not_found(e):
+    if request.path.startswith('/api/'):
+        return jsonify({"error": "Not found"}), 404
+    return send_from_directory(app.static_folder, 'index.html')
 
 # ─────────────────────────────────────────────
 # Run
